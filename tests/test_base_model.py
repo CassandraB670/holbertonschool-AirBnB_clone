@@ -10,7 +10,7 @@ class testBaseModel(unittest.TestCase):
 
     def setUp(self):
         """Set up for the test"""
-        self.model =BaseModel()
+        self.model = BaseModel()
 
     def test_init(self):
         """Test the initialization"""
@@ -48,8 +48,11 @@ class testBaseModel(unittest.TestCase):
         model_dict = self.model.to_dict()
         self.assertIsInstance(model_dict, dict)
         self.assertEqual(model_dict['__class__'], 'BaseModel')
-        self.assertEqual(model_dict['created_at'], self.model.created_at.isoformat())
-        self.assertEqual(model_dict['updated_at'], self.model.updated_at.isoformat())
+        self.assertEqual(model_dict['created_at'],
+                         self.model.created_at.isoformat())
+        self.assertEqual(model_dict['updated_at'],
+                         self.model.updated_at.isoformat())
+
 
 if __name__ == '__main__':
     unittest.main()
