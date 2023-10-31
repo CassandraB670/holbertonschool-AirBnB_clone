@@ -26,6 +26,7 @@ class BaseModel:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.updated_at = self.created_at
+            self.name = "DefaultName"
 
     def __str__(self):
         """print representation str of the BaseModel Class
