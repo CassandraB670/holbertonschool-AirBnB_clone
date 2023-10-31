@@ -143,7 +143,6 @@ class testBaseModel(unittest.TestCase):
 
     def test_save_method_updates_updated_at(self):
         """Test if the 'save' method updates 'updated_at' correctly"""
-        model = BaseModel()
         old_updated_at = self.model.updated_at.timestamp()
         self.model.save()
         self.assertGreater(self.model.updated_at.timestamp(), old_updated_at)
