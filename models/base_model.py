@@ -8,7 +8,11 @@ class BaseModel:
     """defines all common attributes/methods for other classes"""
 
     def __init__(self, *args, **kwargs):
-        """initialization of the BaseModel Class"""
+        """initialization of the BaseModel Class
+        Args:
+            args: set of arguments
+            kwargs: set of arguments with keyword
+        """
         if kwargs:
             if "__class__" in kwargs:
                 del kwargs["__class__"]
@@ -24,16 +28,24 @@ class BaseModel:
             self.updated_at = self.created_at
 
     def __str__(self):
-        """print representation str of the BaseModel Class"""
+        """print representation str of the BaseModel Class
+        Returns:
+            str: string representation of instance
+        """
         return f"[{type(self).__name__}] ({self.id}) {self.__dict__}"
 
     def save(self):
         """update the public instance attribute updated_at
-        with current datetime"""
+        with current datetime
+        updated_at : with the current datetime
+        """
         self.updated_at = datetime.now()
 
     def to_dict(self):
-        """returns a dictionary"""
+        """returns a dictionary
+        Return:
+            dict: instance dictionary
+        """
         obj_dict = self.__dict__.copy()
         obj_dict['__class__'] = type(self).__name__
         obj_dict['created_at'] = self.created_at.isoformat()
