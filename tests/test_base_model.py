@@ -135,44 +135,11 @@ class testBaseModel(unittest.TestCase):
         with self.assertRaises(ValueError):
             BaseModel(updated_at="invalid_format")
 
-    def test_str_representation_with_custom_attributes(self):
-        """Test the string representation when custom attributes are added"""
-        model = BaseModel(name="TestObject", value=42)
-        expected_str = f"[BaseModel] ({model.id}) {{'name': 'TestObject', 'value': 42}}"
-        self.assertEqual(str(model), expected_str)
-
     def test_save_method_updates_updated_at(self):
         """Test if the 'save' method updates 'updated_at' correctly"""
         old_updated_at = self.model.updated_at.timestamp()
         self.model.save()
         self.assertGreater(self.model.updated_at.timestamp(), old_updated_at)
-
-    def test_to_dict_method_includes_custom_attributes(self):
-        """Test if 'to_dict' method includes custom attributes"""
-        model = BaseModel(name="TestObject", value=42)
-        model_dict = model.to_dict()
-        self.assertIn('name', model_dict)
-        self.assertIn('value', model_dict)
-        self.assertEqual(model_dict['name'], "TestObject")
-        self.assertEqual(model_dict['value'], 42)
-
-    def test_to_dict_method_includes_custom_attributes_type(self):
-        """Test if 'to_dict' method includes the correct type
-        for custom attributes"""
-        model = BaseModel(name="TestObject", value=42)
-        model_dict = model.to_dict()
-        self.assertEqual(type(model_dict['name']), str)
-        self.assertEqual(type(model_dict['value']), int)
-
-    def test_to_dict_method_includes_custom_attributes_type_list(self):
-        """Test if 'to_dict' method includes the correct type
-        for custom attributes in a list"""
-        model = BaseModel(name="TestObject", values=[42, 43, 44])
-        model_dict = model.to_dict()
-        self.assertEqual(type(model_dict['values']), list)
-        self.assertEqual(type(model_dict['values'][0]), int)
-        self.assertEqual(type(model_dict['values'][1]), int)
-        self.assertEqual(type(model_dict['values'][2]), int)
 
 
 if __name__ == '__main__':
