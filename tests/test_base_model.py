@@ -15,6 +15,9 @@ class testBaseModel(unittest.TestCase):
     def test_init(self):
         """Test the initialization"""
         self.assertIsInstance(self.model, BaseModel)
+        self.assertIsInstance(self.model.id, str)
+        self.assertIsInstance(self.model.created_at, datetime)
+        self.assertIsInstance(self.model.updated_at, datetime)
 
     def test_id_is_string(self):
         """Test if 'id' is a string"""
@@ -37,6 +40,15 @@ class testBaseModel(unittest.TestCase):
         expected_str = f"[BaseModel] ({self.model.id}) {self.model.__dict__}"
         self.assertEqual(str(self.model), expected_str)
 
+    def test_str(self):
+        """ Test string rep """
+        model_str = str(self.model)
+        self.assertIsInstance(model_str, str)
+        self.assertIn('[BaseModel]', model_str)
+        self.assertIn('id', model_str)
+        self.assertIn(str(self.model.id), model_str)
+        self.assertIn(str(self.model.__dict__), model_str)
+
     def test_save_method_updates_updated_at(self):
         """Test if the 'save' method updates 'updated_at'"""
         old_updated_at = self.model.updated_at
@@ -52,6 +64,10 @@ class testBaseModel(unittest.TestCase):
                          self.model.created_at.isoformat())
         self.assertEqual(model_dict['updated_at'],
                          self.model.updated_at.isoformat())
+        self.assertIn('id', model_dict)
+        self.assertIn('created_at', model_dict)
+        self.assertIn('updated_at', model_dict)
+        self.assertIn('__class__', model_dict)
 
     def test_id_unique_for_each_instance(self):
         """Test if 'id' is unique for each instance"""
