@@ -119,6 +119,61 @@ class testBaseModel(unittest.TestCase):
         self.assertEqual(model.updated_at.isoformat(),
                          "2023-02-02T01:01:01.654321")
 
+    def test_init_with_id(self):
+        """Test if 'id' is correctly initialized when provided"""
+        custom_id = "custom_id"
+        model = BaseModel(id=custom_id)
+        self.assertEqual(model.id, custom_id)
+
+    def test_init_with_invalid_created_at(self):
+        """Test if an invalid 'created_at' format raises an exception"""
+        with self.assertRaises(ValueError):
+            BaseModel(created_at="invalid_format")
+
+    def test_init_with_invalid_updated_at(self):
+        """Test if an invalid 'updated_at' format raises an exception"""
+        with self.assertRaises(ValueError):
+            BaseModel(updated_at="invalid_format")
+
+    def test_str_representation_with_custom_attributes(self):
+        """Test the string representation when custom attributes are added"""
+        model = BaseModel(name="TestObject", value=42)
+        expected_str = f"[BaseModel] ({model.id}) {{'name': 'TestObject', 'value': 42}}"
+        self.assertEqual(str(model), expected_str)
+
+    def test_save_method_updates_updated_at(self):
+        """Test if the 'save' method updates 'updated_at' correctly"""
+        old_updated_at = self.model.updated_at.timestamp()
+        self.model.save()
+        self.assertGreater(self.model.updated_at.timestamp(), old_updated_at)
+
+    def test_to_dict_method_includes_custom_attributes(self):
+        """Test if 'to_dict' method includes custom attributes"""
+        model = BaseModel(name="TestObject", value=42)
+        model_dict = model.to_dict()
+        self.assertIn('name', model_dict)
+        self.assertIn('value', model_dict)
+        self.assertEqual(model_dict['name'], "TestObject")
+        self.assertEqual(model_dict['value'], 42)
+
+    def test_to_dict_method_includes_custom_attributes_type(self):
+        """Test if 'to_dict' method includes the correct type
+        for custom attributes"""
+        model = BaseModel(name="TestObject", value=42)
+        model_dict = model.to_dict()
+        self.assertEqual(type(model_dict['name']), str)
+        self.assertEqual(type(model_dict['value']), int)
+
+    def test_to_dict_method_includes_custom_attributes_type_list(self):
+        """Test if 'to_dict' method includes the correct type
+        for custom attributes in a list"""
+        model = BaseModel(name="TestObject", values=[42, 43, 44])
+        model_dict = model.to_dict()
+        self.assertEqual(type(model_dict['values']), list)
+        self.assertEqual(type(model_dict['values'][0]), int)
+        self.assertEqual(type(model_dict['values'][1]), int)
+        self.assertEqual(type(model_dict['values'][2]), int)
+
 
 if __name__ == '__main__':
     unittest.main()
