@@ -2,6 +2,7 @@
 """Write the first class Base"""
 import uuid
 from datetime import datetime
+from models import storage
 
 
 class BaseModel:
@@ -26,7 +27,6 @@ class BaseModel:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.updated_at = self.created_at
-            self.name = "DefaultName"
 
     def __str__(self):
         """print representation str of the BaseModel Class
@@ -41,6 +41,7 @@ class BaseModel:
         updated_at : with the current datetime
         """
         self.updated_at = datetime.now()
+        storage.save(self)
 
     def to_dict(self):
         """returns a dictionary
