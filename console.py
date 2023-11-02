@@ -31,7 +31,12 @@ class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb)"
     __classes = {
         "BaseModel",
-        "User"
+        "User",
+        "State",
+        "City",
+        "Place",
+        "Review",
+        "Amenity"
     }
 
     def do_quit(self, arg):
