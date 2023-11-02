@@ -11,6 +11,7 @@ import unittest
 from datetime import datetime
 from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
+from models.user import User
 
 
 class TestFileStorage_instantiation(unittest.TestCase):
@@ -64,9 +65,13 @@ class TestFileStorage_methods(unittest.TestCase):
 
     def test_new(self):
         bm = BaseModel()
+        us = User()
         models.storage.new(bm)
+        models.storage.new(us)
         self.assertIn("BaseModel." + bm.id, models.storage.all().keys())
         self.assertIn(bm, models.storage.all().values())
+        self.assertIn("User." + us.id, models.storage.all().keys())
+        self.assertIn(us, models.storage.all().values())
 
     def test_new_with_args(self):
         with self.assertRaises(TypeError):
@@ -78,12 +83,15 @@ class TestFileStorage_methods(unittest.TestCase):
 
     def test_save(self):
         bm = BaseModel()
+        us = User()
         models.storage.new(bm)
+        models.storage.new(us)
         models.storage.save()
         save_text = ""
         with open("file.json", "r") as f:
             save_text = f.read()
             self.assertIn("BaseModel." + bm.id, save_text)
+            self.assertIn("User." + us.id, save_text)
 
     def test_save_with_arg(self):
         with self.assertRaises(TypeError):
