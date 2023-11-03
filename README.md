@@ -118,3 +118,46 @@ Output:
 ```bash
 2
 ```
+
+## Classes
+
+HolbertonBnB utilizes the following classes:
+
+|     | BaseModel | FileStorage | User | State | City | Amenity | Place | Review |
+| --- | --------- | ----------- | -----| ----- | -----| ------- | ----- | ------ |
+| **PUBLIC INSTANCE ATTRIBUTES** | `id`<br>`created_at`<br>`updated_at` | | Inherits from `BaseModel` | Inherits from `BaseModel` | Inherits from `BaseModel` | Inherits from `BaseModel` | Inherits from `BaseModel` | Inherits from `BaseModel` |
+| **PUBLIC INSTANCE METHODS** | `save`<br>`to_dict` | `all`<br>`new`<br>`save`<br>`reload` | "" | "" | "" | "" | "" | "" |
+| **PUBLIC CLASS ATTRIBUTES** | | | `email`<br>`password`<br>`first_name`<br>`last_name`| `name` | `state_id`<br>`name` | `name` | `city_id`<br>`user_id`<br>`name`<br>`description`<br>`number_rooms`<br>`number_bathrooms`<br>`max_guest`<br>`price_by_night`<br>`latitude`<br>`longitude`<br>`amenity_ids` | `place_id`<br>`user_id`<br>`text` | 
+| **PRIVATE CLASS ATTRIBUTES** | | `file_path`<br>`objects` | | | | | | |
+| | | | | | | | | |
+
+## Testing
+
+Unittests for the HolbertonBnB project are defined in the tests folder
+. To run the test files :
+
+```
+$ python3 -m unittest -v tests.test_models.test_amenity
+$ python3 -m unittest -v tests.test_models.test_base_model
+$ python3 -m unittest -v tests.test_models.test_city
+$ python3 -m unittest -v tests.test_models.test_place
+...
+$ python3 -m unittest -v tests.test_models.test_engine.test_file_storage
+```
+
+
+## Authors
+
+Cassandra BOUDIER https://github.com/CassandraB670
+
+Christophe BOUDIER https://github.com/BIDcolonel
+
+## License
+
+« Copyright © <BOUDIER Cassandra and BOUDIER Christophe - 2023 November >
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+The Software is provided “as is”, without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose and noninfringement. In no event shall the authors or copyright holders be liable for any claim, damages or other liability, whether in an action of contract, tort or otherwise, arising from, out of or in connection with the software or the use or other dealings in the Software. »
